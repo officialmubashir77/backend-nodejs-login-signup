@@ -1,8 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
+const userModel = require('./models/user.model.js');
 const path = require('path');
 const app = express();
-const port = 3000;
+require('dotenv').config();
+const port = process.env.PORT || 3000;
+const connectDB = require('./config/db.js');
+
+// Connect to the database
+connectDB();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -42,8 +48,8 @@ app.get('/contact', (req, res) => {
 
 app.post('/get-form-data', (req, res) => {
     const { username, email, password } = req.body;
-    console.log('Form Data Received:', { username, email, password });
-    res.send('Form data received');
+    
+
 });
 
 app.listen(port, () => {
